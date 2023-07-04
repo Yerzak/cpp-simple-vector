@@ -122,11 +122,13 @@ public:
 
     // Возвращает ссылку на элемент с индексом index
     Type& operator[](size_t index) noexcept {
+        assert(index < size_);
         return arr[index];
     }
 
     // Возвращает константную ссылку на элемент с индексом index
     const Type& operator[](size_t index) const noexcept {
+        assert(index < size_);
         return arr[index];
     }
 
@@ -175,8 +177,7 @@ public:
     // Возвращает итератор на элемент, следующий за последним
     // Для пустого массива может быть равен (или не равен) nullptr
     Iterator end() noexcept {
-
-        return (size_ > 0 ? arr.Get() + size_ : arr.Get());
+        return (arr.Get() + size_);
     }
 
     // Возвращает константный итератор на начало массива
@@ -224,6 +225,7 @@ public:
     // Если перед вставкой значения вектор был заполнен полностью,
     // вместимость вектора должна увеличиться вдвое, а для вектора вместимостью 0 стать равной 1
     Iterator Insert(ConstIterator pos, const Type& value) {
+        assert(pos >= begin() && pos < end());
         if (capacity == 0) {
             PushBack(value);
             return begin();
@@ -249,6 +251,7 @@ public:
     }
 
     Iterator Insert(ConstIterator pos, Type&& value) {
+        assert(pos >= begin() && pos < end());
         if (capacity == 0) {
             PushBack(std::move(value));
             return begin();
@@ -282,6 +285,7 @@ public:
 
     // Удаляет элемент вектора в указанной позиции
     Iterator Erase(ConstIterator pos) {
+        assert(pos >= begin() && pos < end());
         size_t position = pos - begin();
         assert(position < size_);
         std::copy(std::make_move_iterator(begin() + position + 1), std::make_move_iterator(end()), begin() + position);
