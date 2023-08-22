@@ -79,7 +79,6 @@ public:
     }
 
     SimpleVector& operator=(const SimpleVector& other) {
-        // Напишите тело конструктора самостоятельно
         if (this != &other) {
             auto tmp(other);
             swap(tmp);
@@ -88,7 +87,6 @@ public:
     }
 
     SimpleVector& operator=(SimpleVector&& other) {
-        // Напишите тело конструктора самостоятельно
         if (this != &other) {
             arr = std::move(other.arr);
             size_ = std::exchange(other.size_, 0);
@@ -105,13 +103,11 @@ public:
 
     // Возвращает количество элементов в массиве
     size_t GetSize() const noexcept {
-        // Напишите тело самостоятельно
         return size_;
     }
 
     // Возвращает вместимость массива
     size_t GetCapacity() const noexcept {
-        // Напишите тело самостоятельно
         return capacity;
     }
 
